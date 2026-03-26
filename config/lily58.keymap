@@ -11,16 +11,22 @@
 
 / {
     behaviors {
-            new_behavior: new_behavior {
-                compatible = "zmk,behavior-hold-tap";
-                label = "NEW_BEHAVIOR";
-                bindings = <&kp>, <&kp>;
-                #binding-cells = <2>;
-                flavor = "tap-preferred";
-                tapping-term-ms = <200>; // Tiempo en milisegundos (200 es el estándar)
-                quick-tap-ms = <125>;     // Permite repetir la 'f' si pulsas rápido dos veces
-            };
+        n_enie: n_enie {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings = <&kp N>, <&enie>;
+            mods = <(MOD_LALT|MOD_RALT)>;
         };
+        acento_morph: acento_morph {
+        compatible = "zmk,behavior-mod-morph";
+        #binding-cells = <0>;
+        bindings = <&kp SQT>, <&kp LBKT>; // En teclado español, el acento es [
+        mods = <(MOD_LALT|MOD_RALT)>;
+        };
+    };
+
+
+};
 
     keymap {
         compatible = "zmk,keymap";
@@ -36,8 +42,8 @@
             bindings = <
 &kp ESC    &kp N1  &kp N2  &kp N3    &kp N4                          &kp N5                         &kp N6         &kp N7  &kp N8      &kp N9   &kp N0    &kp EQUAL
 &kp TAB    &kp Q   &kp W   &kp E     &kp R                           &kp T                          &kp Y          &kp U   &kp I       &kp O    &kp P     &kp MINUS
-&kp LCTRL  &kp A   &kp S   &new_behavior LCTRL D     &new_behavior LSHIFT F  &kp G                          &kp H          &new_behavior RSHIFT J   &new_behavior RCTRL K       &kp L    &kp SEMI  &kp SQT
-&kp LSHFT  &kp Z   &kp X   &kp C     &kp V                           &kp B   &kp LBKT     &kp RBKT  &kp N          &kp M   &kp COMMA   &kp DOT  &kp FSLH  &kp RSHFT
+&kp LCTRL  &kp A   &kp S   &kp D     &kp F  &kp G                          &kp H          &kp J   &kp K       &kp L    &kp SEMI  &acento_morph
+&kp LSHFT  &kp Z   &kp X   &kp C     &kp V                           &kp B   &kp LBKT     &kp RBKT  &n_enie          &kp M   &kp COMMA   &kp DOT  &kp FSLH  &kp RSHFT
                            &kp LALT  &kp LEFT_WIN                    &mo 1   &kp SPACE    &kp RET   &kp BACKSPACE  &mo 2   &kp ESCAPE
             >;
 
